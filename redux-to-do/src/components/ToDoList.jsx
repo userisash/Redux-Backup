@@ -37,6 +37,26 @@ const ToDoList = () => {
             setShowMpdel(true)
         }
     }
+
+    const handleUpdateTodo = (id, task) => {
+        if (task.trim().length === 0) {
+          alert("Please Add a Task");
+        } else {
+          dispatch(updateTodo({
+            id: id,
+            task: task
+          }));
+          setShowMpdel(false);
+        }
+      };
+      
+
+      const handleDeleteTodo = (id) => {
+        const newToDoList = todoList.filter((todo) => todo.id !== id);
+        dispatch(setToDoList(newToDoList));
+        localStorage.setItem("todolist", JSON.stringify(newToDoList));
+      };
+      
 const handleSort = (sortCriteria) =>{
     dispatch(sortTodo(sortCriteria))
 }
@@ -57,7 +77,10 @@ const handleSort = (sortCriteria) =>{
                 onChange={(e)=> setNewTask(e.target.value)}
                 />
                 <div>{currentTodo ?(<>
-                    <button>Save</button>
+                    <button onClick={()=>{
+                        setShowMpdel(false),
+                        handleUpdateTodo(currentTodo.id, newTask)
+                    }}>Save</button>
                     <button>Cancel</button>
                 </>):(
                     <>
@@ -78,8 +101,8 @@ const handleSort = (sortCriteria) =>{
                     <div key={todo.id} className="list">
                         <div>{todo.task}</div>
                         <div className="crud-btns">
-                            <button><TiPencil/></button>
-                            <button><BsTrash/></button>
+                            <button onClick={()=> {setShowMpdel(true); setCurrentTodo(todo); setNewTask(todo.task)}}><TiPencil/></button>
+                            <button onClick={()=> handleDeleteTodo(todo.id)}><BsTrash/></button>
                         </div>
                     </div>
                 ))}
