@@ -4,7 +4,7 @@ import { addToDo, sortTodo, updateTodo, setToDoList, toggleCompleted } from '../
 import {TiPencil} from "react-icons/ti"
 import {BsTrash} from "react-icons/bs"
 import '../todo.css'
-import { useImageFetchingQuery as usePexelsApi } from '../redux/apiSlice'
+import { useSearchPhotosQuery } from '../redux/apiSlice.jsx'
 
 const ToDoList = () => {
     const dispatch = useDispatch()
@@ -14,7 +14,7 @@ const ToDoList = () => {
     const [currentTodo, setCurrentTodo] = useState(null)
     const [newTask, setNewTask]= useState("")
     const [query, setQuery] = useState('')
-    const { data, error, isLoading } = usePexelsApi(query)
+    const { data, error, isLoading } = useSearchPhotosQuery(query)
     console.log(data)
     useEffect(()=>{
         if(todoList.length > 0){

@@ -4,8 +4,8 @@ const API_KEY = 'lTJicytLI3skHoWOOLyCDolpooQB8me7lAOeXtf4VzzNETsDoe2IVrmF'
 
 const PEXELS_ENDPOINT = 'https://api.pexels.com/v1'
 
-const ImageApi = createApi({
-  reducerPath: 'pexelsApi',
+export const imageApi = createApi({
+  reducerPath: 'imageApi',
   baseQuery: fetchBaseQuery({
     baseUrl: PEXELS_ENDPOINT,
     headers: {
@@ -19,4 +19,4 @@ const ImageApi = createApi({
   }),
 })
 
-export const { useImageFetchingQuery } = ImageApi.endpoints
+export const { useSearchPhotosQuery } = imageApi
