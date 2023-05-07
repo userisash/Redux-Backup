@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux"
 import { addToDo, sortTodo, updateTodo, setToDoList, toggleCompleted } from '../redux/todoSlice'
 import {TiPencil} from "react-icons/ti"
 import {BsTrash} from "react-icons/bs"
+import '../todo.css'
 
 const ToDoList = () => {
     const dispatch = useDispatch()
@@ -61,6 +62,10 @@ const handleSort = (sortCriteria) =>{
     dispatch(sortTodo(sortCriteria))
 }
 
+    const handleToggleComplete = (id) =>{
+        dispatch(toggleCompleted({id}))
+    }
+
     const sortTodoList =todoList.filter((todo) =>{
         if(sortCriteria === "All") return true
         if(sortCriteria === "completed" && todo.completed) return true
@@ -70,7 +75,7 @@ const handleSort = (sortCriteria) =>{
   return (
     <div>
         {showModel && (
-            <div>
+            <div className='overlay'>
                 <input type="text" 
                 placeholder={currentTodo ? "Update Your Task Here" : "Enter Your Task Here"}
                 value={newTask}
@@ -97,9 +102,27 @@ const handleSort = (sortCriteria) =>{
             <p>You Have No Tasks</p>
             </div>
             </>:<>
+            <div className="flex justify-center mb-6">
+              <select
+                onChange={(e) => handleSort(e.target.value)}
+                className="p-1 outline-none text-sm"
+              >
+                <option value="All">
+                  All
+                </option>
+                <option value="Completed">
+                  Completed
+                </option>
+                <option value="Not Completed">
+                  Not Completed
+                </option>
+              </select>
+            </div>
                 {sortTodoList.map(todo =>(
                     <div key={todo.id} className="list">
-                        <div>{todo.task}</div>
+                        <div onClick={() =>{
+                            handleToggleComplete(todo.id)
+                        }}>{todo.task}</div>
                         <div className="crud-btns">
                             <button onClick={()=> {setShowMpdel(true); setCurrentTodo(todo); setNewTask(todo.task)}}><TiPencil/></button>
                             <button onClick={()=> handleDeleteTodo(todo.id)}><BsTrash/></button>

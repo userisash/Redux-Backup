@@ -1,8 +1,9 @@
 import React from 'react'
+import '../todo.css'
 
 const Heading = () => {
   return (
-    <div>
+    <div className='header'>
        My ToDo List
     </div>
   )

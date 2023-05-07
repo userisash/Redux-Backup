@@ -31,7 +31,7 @@ const todoSlice = createSlice({
             const {id} = action.payload
             const index = state.todoList.findIndex((todo) => todo.id === id)
             state.todoList[index].completed = !state
-            todoList[index].compledted
+            state.todoList[index].completed = !state.todoList[index].completed;
         },
     }
 })
