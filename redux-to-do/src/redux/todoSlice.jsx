@@ -12,7 +12,7 @@ const todoSlice = createSlice({
         setToDoList: (state, action) =>{
             state.todoList = action.payload
         },
-        addToDoList: (state, action) =>{
+        addToDo: (state, action) =>{
             state.todoList.push({
                 task: action.payload.task,
                 id: action.payload.id,
@@ -36,5 +36,5 @@ const todoSlice = createSlice({
     }
 })
 
-export const {setToDoList, addToDoList, sortTodo, updateTodo, toggleCompleted} = todoSlice.actions
+export const {setToDoList, addToDo, sortTodo, updateTodo, toggleCompleted} = todoSlice.actions
 export default todoSlice.reducer
